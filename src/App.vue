@@ -1,31 +1,45 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div>
+    <v-content>
+    <MyPage :title="page1" :titleEnglish="titleEnglish1" @childObject="setObject"/>
+    <MyPage :title="page2" :titleEnglish="titleEnglish2" @childObject="setObject"/>
+    <MyPage :title="page3" :titleEnglish="titleEnglish3" @childObject="setObject"/>
+    <MyPage :title="page4" :titleEnglish="titleEnglish4" @childObject="setObject"/>
+
+    <p></p>
+    <p>현재 선택된 화면 : {{display}}</p>
+      <router-view/>
+    </v-content>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+<script>
+import MyPage from "./components/MyPage";
+import { stringify } from "querystring";
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+export default {
+  name: "App",
+  components: {
+    MyPage
+  },
+  data() {
+    return {
+      page1: "홈",
+      page2: "마이페이지",
+      page3: "서비스",
+      page4: "로그인",
+      titleEnglish1: "home",
+      titleEnglish2: "myPage",
+      titleEnglish3: "service",
+      titleEnglish4: "login",
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+      display: "home"
+    };
+  },
+  methods: {
+    setObject(object) {
+      this.display = JSON.stringify(object);
+    }
+  }
+};
+</script>
